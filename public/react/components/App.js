@@ -7,6 +7,7 @@ import apiURL from '../api';
 export const App = () => {
 
 	const [pages, setPages] = useState([]);
+	const [articleData,setArticleData] = useState ([])
 
 	async function fetchPages(){
 		try {
@@ -18,10 +19,22 @@ export const App = () => {
 		}
 	}
 
+	async function click(){
+	  try {
+			  const response = await fetch(`${apiURL}/wiki`);
+			  const data = await response.json();
+			  setArticleData(data);
+		  } catch (err) {
+			  console.log("Oh no an error! ", err)
+		  }
+	  }
+
+
 	useEffect(() => {
 		fetchPages();
 	}, []);
 
+	
 	return (
 		<main>	
       <h1>WikiVerse</h1>
